@@ -28,10 +28,9 @@ export const TakeNote3 = (propes) => {
     Title: "",
     Descreption: "",
     color: "",
-    _id: "",
   });
 
-  const takeUpdatedTitle = (event) => {
+  const takeTitileNotethree = (event) => {
     console.log(event.target.value);
 
     setUpdateNoteObj({
@@ -40,21 +39,28 @@ export const TakeNote3 = (propes) => {
     });
   };
 
-  const takeUpdatedDescription = (event) => {
+  const DescriptionNotethree = (event) => {
     console.log(event.target.value);
     setUpdateNoteObj({
       ...updateNotObj,
       Descreption: event.target.value,
     });
   };
+
+  const getColourFromChildNoteThree = (value) => {
+    setUpdateNoteObj({
+      ...updateNotObj,
+      color: value,
+    });
+  };
+
   const style = {
     position: "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 300,
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
@@ -72,7 +78,6 @@ export const TakeNote3 = (propes) => {
       // height: "15vh",
       minHeight: "15vh",
       // maxHeight: "50vh",
-  
     },
   });
 
@@ -86,7 +91,6 @@ export const TakeNote3 = (propes) => {
   // };
 
   const handleDelete = (noteId) => {
-    console.log(noteId);
     deleteNote(noteId)
       .then((res) => {
         alert(res.data.message);
@@ -107,22 +111,15 @@ export const TakeNote3 = (propes) => {
       });
   };
 
-  // const updateNoteDetails = (id) => {
-  //   // let token = localStorage.getItem("token");
-  //   // let notedetails = {
-  //   //   Title: propes.takeNote.Title,
-  //   //   Descreption: propes.takeNote.Descreption,
-  //   //   color: propes.takeNote.color,
-  //   // };
-
-  //   updateNote(updateNotObj, id)
-  //     .then((res) => {
-  //       alert(res.data.message);
-  //     })
-  //     .catch((error) => {
-  //       alert(error);
-  //     });
-  // };
+  const updateNoteDetails = (id) => {
+    updateNote(updateNotObj, id)
+      .then((res) => {
+        alert(res.data.message);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
   const classes = useStyles();
   return (
@@ -131,10 +128,9 @@ export const TakeNote3 = (propes) => {
         elevation={3}
         className={classes.rootthree}
         style={{ backgroundColor: propes.takeNote.color }}
-        onClick={handleOpen}
       >
-        <div className="title-note3">
-          <p onChange={takeUpdatedTitle}>{propes.takeNote.Title}</p>
+        <div className="title-note3" onClick={handleOpen}>
+          <p>{propes.takeNote.Title}</p>
 
           <PushPinOutlinedIcon
             style={{
@@ -144,8 +140,8 @@ export const TakeNote3 = (propes) => {
           />
         </div>
 
-        <div className="description-note3">
-          <p onChange={takeUpdatedDescription}>{propes.takeNote.Descreption}</p>
+        <div className="description-note3" onClick={handleOpen}>
+          <p>{propes.takeNote.Descreption}</p>
         </div>
 
         <div className="icon-outer-note3">
@@ -157,8 +153,8 @@ export const TakeNote3 = (propes) => {
               <PersonAddOutlinedIcon />
             </div>
             <div>
-              {/* <ColorLensOutlinedIcon /> */}
-              <SimplePopper />
+              <ColorLensOutlinedIcon />
+              {/* <SimplePopper getcolorNoteThree={getColourFromChildNoteThree} /> */}
             </div>
             <div>
               <InsertPhotoOutlinedIcon />
@@ -187,9 +183,6 @@ export const TakeNote3 = (propes) => {
                 marginLeft: "6px",
                 width: "20%",
               }}
-              // onClick={() => {
-              //   updateNoteDetails(propes.takeNote._id);
-              // }}
             >
               Close
             </Button>
@@ -202,24 +195,68 @@ export const TakeNote3 = (propes) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={style} style={{ backgroundColor: updateNotObj.color }}>
           <p>
             <input
               className="title-input"
               type="text"
               placeholder="Title"
               defaultValue={propes.takeNote.Title}
-
+              onChange={takeTitileNotethree}
             ></input>
           </p>
           <p>
             <input
               className="title-input"
               type="text"
-              placeholder="Title"
+              placeholder="Description"
               defaultValue={propes.takeNote.Descreption}
+              onChange={DescriptionNotethree}
             ></input>
           </p>
+
+          <div className="icon-outer-note3">
+            <div className="icon-inner-note3">
+              <div>
+                <AddAlertOutlinedIcon />
+              </div>
+              <div>
+                <PersonAddOutlinedIcon />
+              </div>
+              <div>
+                {/* <ColorLensOutlinedIcon /> */}
+                <SimplePopper getcolorNoteThree={getColourFromChildNoteThree} />
+              </div>
+              <div>
+                <InsertPhotoOutlinedIcon />
+              </div>
+              <div>
+                <ArchiveOutlinedIcon
+                  onClick={() => {
+                    archiveNote(propes.takeNote._id);
+                  }}
+                />
+              </div>
+              <div>
+                <DeleteForeverOutlinedIcon />
+              </div>
+            </div>
+
+            <div className="Close-note3">
+              <Button
+                size="small"
+                style={{
+                  marginLeft: "6px",
+                  width: "20%",
+                }}
+                onClick={() => {
+                  updateNoteDetails(propes.takeNote._id);
+                }}
+              >
+                Close
+              </Button>
+            </div>
+          </div>
         </Box>
       </Modal>
     </div>

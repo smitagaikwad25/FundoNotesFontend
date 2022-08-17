@@ -13,7 +13,7 @@ export const TakeNote1 = (Props) => {
     root: {
       width: "40vW",
       margin: "auto",
-      marginTop: "2rem",
+      // marginTop: "1rem",
     },
 
     root1: {

@@ -13,6 +13,7 @@ import RefreshOutlinedIcon from "@mui/icons-material/RefreshOutlined";
 import Button from "@material-ui/core/Button";
 import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
 import Paper from "@material-ui/core/Paper";
+import { getAllNote } from "../../Service/userService";
 
 import { createNote } from "../../Service/userService";
 import { SimplePopper } from "../simplePopper/simplePopper";
@@ -53,8 +54,15 @@ export const TakeNote2 = () => {
       let token = localStorage.getItem("token");
       createNote(noteObj)
         .then((res) => {
-          console.log(res);
-          alert(res.data.message);
+          // console.log("token-->", token);
+          getAllNote()
+            .then((res) => {
+              console.log("res-->", res);
+              // setNoteArray(res.data.data);
+            })
+            .catch((error) => {
+              console.log("error", error);
+            });
         })
         .catch((error) => {
           console.log(error);

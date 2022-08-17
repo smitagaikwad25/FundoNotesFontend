@@ -92,6 +92,8 @@ export const updateNote = async (noteDetails,noteId) => {
       Authorization: `Bearer ${token}`,
     },
   };
+
+  console.log("note details---->",noteDetails,noteId)
   let res = await axios.put( `http://localhost:8000/api/v1/note/${noteId}`, noteDetails, headerConfig);
   return res;
 };

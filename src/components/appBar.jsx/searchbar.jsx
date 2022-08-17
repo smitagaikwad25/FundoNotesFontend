@@ -61,7 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+export default function PrimarySearchAppBar(propes) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -83,6 +83,10 @@ export default function PrimarySearchAppBar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleClickOnAppBar = () => {
+    propes.handleDrawer("hello")
   };
 
   const menuId = "primary-search-account-menu";
@@ -119,7 +123,10 @@ export default function PrimarySearchAppBar() {
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon style={{ color: "black" }} />
+            <MenuIcon
+              style={{ color: "black" }}
+              onClick={handleClickOnAppBar}
+            />
           </IconButton>
           <Box style={{ width: "40px", height: "40px", marginRight: 6 }}></Box>
           <Typography

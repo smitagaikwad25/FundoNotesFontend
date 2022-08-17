@@ -25,6 +25,8 @@ export function SimplePopper(propes) {
     "#F1948A",
     "#2ECC71",
     "#F5B041",
+    "#008000",
+    "#C71585",
   ];
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,7 +39,12 @@ export function SimplePopper(propes) {
   const id = open ? "simple-popper" : undefined;
 
   const handleColor = (value) => {
-    propes.getcolor(value);
+    if (propes.hasOwnProperty("getcolor" ) === true) {
+      propes.getcolor(value);
+    }
+    if (propes.hasOwnProperty("getcolorNoteThree") === true) {
+      propes.getcolorNoteThree(value);
+    }
   };
 
   return (

@@ -18,7 +18,7 @@ import { getAllNote } from "../../Service/userService";
 import { createNote } from "../../Service/userService";
 import { SimplePopper } from "../simplePopper/simplePopper";
 
-export const TakeNote2 = () => {
+export const TakeNote2 = (propes) => {
   const [noteObj, setNoteObj] = React.useState({
     Title: "Title",
     Descreption: "",
@@ -54,15 +54,7 @@ export const TakeNote2 = () => {
       let token = localStorage.getItem("token");
       createNote(noteObj)
         .then((res) => {
-          // console.log("token-->", token);
-          getAllNote()
-            .then((res) => {
-              console.log("res-->", res);
-              // setNoteArray(res.data.data);
-            })
-            .catch((error) => {
-              console.log("error", error);
-            });
+          propes.handleGetAllNotesAtNote2();
         })
         .catch((error) => {
           console.log(error);

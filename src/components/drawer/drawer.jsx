@@ -13,11 +13,11 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 
 import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
-import ForwardOutlinedIcon from '@mui/icons-material/ForwardOutlined';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
-import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import ForwardOutlinedIcon from "@mui/icons-material/ForwardOutlined";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import ArchiveOutlinedIcon from "@mui/icons-material/ArchiveOutlined";
+import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 
 const drawerWidth = 240;
 
@@ -93,55 +93,67 @@ export function MiniDrawer(propes) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
+  const getAllNotes = () => {
+    propes.getdrawerAction('allNotes')
+  };
+
+  const getAllArchivedNotes = () => {
+    propes.getdrawerAction('Archived');
+  };
+
+  const getAllTrashedNotes = () => {
+    propes.getdrawerAction('trashed');
+  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <Drawer variant="permanent" open={propes.drawerOpen}>
         <List>
-          <ListItem button>
+          <ListItem button onClick={getAllNotes}>
             <ListItemIcon>
-              <LightbulbOutlinedIcon/>
+              <LightbulbOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Notes" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
-              <NotificationsNoneOutlinedIcon/>
+              <NotificationsNoneOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Reminder" />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
-              <ForwardOutlinedIcon/>
+              <ForwardOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="hello" />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
-              <ForwardOutlinedIcon/>
+              <ForwardOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="to know" />
           </ListItem>
 
           <ListItem button>
             <ListItemIcon>
-              <EditOutlinedIcon/>
+              <EditOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Edit labels" />
           </ListItem>
 
-          <ListItem button>
+          <ListItem button onClick={getAllArchivedNotes}>
             <ListItemIcon>
-              <ArchiveOutlinedIcon/>
+              <ArchiveOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Archive" />
           </ListItem>
 
-          <ListItem button>
+          <ListItem button onClick={getAllTrashedNotes}>
             <ListItemIcon>
-              <DeleteOutlineOutlinedIcon/>
+              <DeleteOutlineOutlinedIcon />
             </ListItemIcon>
             <ListItemText primary="Trash" />
           </ListItem>

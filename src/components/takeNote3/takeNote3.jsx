@@ -17,6 +17,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import { deleteNote } from "../../Service/userService";
 import { isarchive } from "../../Service/userService";
 import { updateNote } from "../../Service/userService";
+import { trash } from "../../Service/userService";
 import { SimplePopper } from "../simplePopper/simplePopper";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -90,10 +91,22 @@ export const TakeNote3 = (propes) => {
   //   console.log(event.target.id)
   // };
 
-  const handleDelete = (noteId) => {
-    deleteNote(noteId)
+  // const handleDelete = (noteId) => {
+  //   deleteNote(noteId)
+  //     .then((res) => {
+  //       // alert(res.data.message);
+  //       propes.handleGetAllNotes();
+  //     })
+  //     .catch((error) => {
+  //       alert(error);
+  //     });
+  // };
+
+  const handleTrash = (noteId) => {
+    trash(noteId)
       .then((res) => {
         alert(res.data.message);
+        propes.handleGetAllNotes();
       })
       .catch((error) => {
         alert(error);
@@ -104,7 +117,8 @@ export const TakeNote3 = (propes) => {
     // let token = localStorage.getItem("token");
     isarchive(noteId)
       .then((res) => {
-        alert(res.data.message);
+        propes.handleGetAllNotes();
+        // alert(res.data.message);
       })
       .catch((error) => {
         alert(error);
@@ -114,7 +128,7 @@ export const TakeNote3 = (propes) => {
   const updateNoteDetails = (id) => {
     updateNote(updateNotObj, id)
       .then((res) => {
-        alert(res.data.message);
+        propes.handleGetAllNotes();
       })
       .catch((error) => {
         alert(error);
@@ -170,7 +184,7 @@ export const TakeNote3 = (propes) => {
               {/* <DeleteForeverOutlinedIcon onClick={handleDelete} id={propes.takeNote._id} /> */}
               <DeleteForeverOutlinedIcon
                 onClick={() => {
-                  handleDelete(propes.takeNote._id);
+                  handleTrash(propes.takeNote._id);
                 }}
               />
             </div>
@@ -242,7 +256,7 @@ export const TakeNote3 = (propes) => {
               </div>
             </div>
 
-            <div className="Close-note3">
+            <div className="Close-note3" onClose={handleClose}>
               <Button
                 size="small"
                 style={{

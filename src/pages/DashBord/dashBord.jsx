@@ -11,40 +11,92 @@ export const DashBord = () => {
   const [switchNote, setSwitchNote] = React.useState(false);
   const [allNoteArray, setNoteArray] = React.useState([]);
   const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const [noteStatus, setNoteStatus] = React.useState("allNotes");
 
-  const handleDrawer = (value)=>{
-    console.log(value)
-    setDrawerOpen(!drawerOpen)
-  }
+  const handleDrawer = (value) => {
+    console.log(value);
+    setDrawerOpen(!drawerOpen);
+  };
 
   const takeNote1 = () => {
     setSwitchNote(true);
   };
 
-  React.useEffect(() => {
-    // let token = localStorage.getItem("token");
-    // console.log("token-->", token);
+  const getdrawerAction = (res) => {
+    console.log(res);
+    setNoteStatus(res);
+  };
+
+  const handleGetAllNotes = () => {
     getAllNote()
       .then((res) => {
-        console.log("res-->", res);
-        setNoteArray(res.data.data);
+        let note = res.data.data.filter((data) => {
+          if (noteStatus == "allNotes") {
+            if (
+              (data.isArchived === false || data.isArchived === undefined) &&
+              (data.isDeleted === false || data.isDeleted === undefined)
+            ) {
+              return data;
+            }
+          }
+
+          if (noteStatus == "Archived") {
+            if (
+              data.isArchived === true &&
+              (data.isDeleted === false || data.isDeleted === undefined)
+            ) {
+              console.log("data.isArchived", data);
+              return data;
+            }
+          }
+
+          if (noteStatus == "trashed") {
+            if (
+              data.isDeleted === true &&
+              (data.isArchived === false || data.isArchived === undefined)
+            ) {
+              return data;
+            }
+          }
+        });
+
+        setNoteArray(note);
       })
       .catch((error) => {
         console.log("error", error);
       });
-  }, []);
+  };
 
+  React.useEffect(() => {
+    handleGetAllNotes();
+  }, [noteStatus]);
 
-
-  
   return (
     <div>
       <PrimarySearchAppBar handleDrawer={handleDrawer} />
-      <MiniDrawer drawerOpen={drawerOpen}/>
-      {switchNote ? <TakeNote2 /> : <TakeNote1 takeNote1={takeNote1} />}
-      <div  style={{width:"70vw", hight:"100%", marginLeft:"20%" ,  display:"flex", marginTop:"5%", flexWrap:"wrap", justifyContent:"space-around", gap:"20px"}}>
+      <MiniDrawer getdrawerAction={getdrawerAction} drawerOpen={drawerOpen} />
+      {switchNote ? (
+        <TakeNote2 handleGetAllNotesAtNote2={handleGetAllNotes} />
+      ) : (
+        <TakeNote1 takeNote1={takeNote1} />
+      )}
+      <div
+        style={{
+          width: "70vw",
+          hight: "100%",
+          marginLeft: "20%",
+          display: "flex",
+          marginTop: "5%",
+          flexWrap: "wrap",
+          justifyContent: "space-around",
+          gap: "20px",
+        }}
+      >
         {allNoteArray.map((TakeNote) => (
-          <TakeNote3 takeNote={TakeNote} />
+          <TakeNote3
+            handleGetAllNotes={handleGetAllNotes}
+            takeNote={TakeNote}
+          />
         ))}
       </div>
     </div>

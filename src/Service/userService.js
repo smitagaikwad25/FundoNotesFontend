@@ -76,8 +76,7 @@ export const isarchive = async (nodeId) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  console.log("note id --->", nodeId);
-  console.log("token ", headerConfig);
+
   let res = await axios.put(
     `http://localhost:8000/api/v1/note/isarchive/${nodeId}`,
     null,
@@ -86,14 +85,48 @@ export const isarchive = async (nodeId) => {
   return res;
 };
 
-export const updateNote = async (noteDetails,noteId) => {
+export const updateNote = async (noteDetails, noteId) => {
   const headerConfig = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  console.log("note details---->",noteDetails,noteId)
-  let res = await axios.put( `http://localhost:8000/api/v1/note/${noteId}`, noteDetails, headerConfig);
+  console.log("note details---->", noteDetails, noteId);
+  let res = await axios.put(
+    `http://localhost:8000/api/v1/note/${noteId}`,
+    noteDetails,
+    headerConfig
+  );
+  return res;
+};
+
+// export const trash = async (nodeId) => {
+//   const headerConfig = {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   };
+//   console.log("headerConfig", headerConfig);
+//   let res = await axios.put(
+//     `http://localhost:8000/api/v1/note/istrash/${nodeId}`,
+//     headerConfig
+//   );
+//   console.log("headerConfig", res);
+//   return res;
+// };
+
+export const trash = async (nodeId) => {
+  const headerConfig = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  
+  let res = await axios.put(
+    `http://localhost:8000/api/v1/note/istrash/${nodeId}`,null,
+    headerConfig
+  );
+  console.log("headerConfig", res);
   return res;
 };

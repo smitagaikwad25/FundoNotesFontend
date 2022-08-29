@@ -49,9 +49,7 @@ export function SimplePopper(propes) {
 
   return (
     <div>
-      {/* <button aria-describedby={id} type="button" onClick={handleClick}>
-        Toggle Popper
-        </button> */}
+    
       <ColorLensOutlinedIcon onClick={handleClick} />
       <Popper
         id={id}
@@ -59,9 +57,7 @@ export function SimplePopper(propes) {
         style={{ display: "flex" }}
         anchorEl={anchorEl}
       >
-        {/* <div >The content of the Popper.</div> */}
-
-        {colors.map((value) => (
+      {colors.map((value) => (
           <div
             onClick={() => handleColor(value)}
             className={classes.paper}
